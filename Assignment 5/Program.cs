@@ -2,45 +2,33 @@
 {
     class MyCookieCollection
     {
-        string username,theme,language;
+        
+       Dictionary<string, string> cookies;
         public MyCookieCollection()
         {
-           username = string.Empty;
-           theme = string.Empty;
-           language = string.Empty;
+            cookies = new Dictionary<string, string>();
         }
         public string this[string key]
         {
             get
             {
-                if (key.Equals("username"))
-                    return username;
-                else if (key.Equals("theme"))
-                    return theme;
-                else if (key.Equals("language"))
-                    return language;
-                else
-                    return null;
+                if (cookies.ContainsKey(key))
+                {
+                    return cookies[key];
+                }
+                return null;
             }
             set
             {
-                if (key.Equals("username"))
-                    username = value;
-                else if (key.Equals("theme"))
-                    theme = value;
-                else if (key.Equals("language"))
-                    language = value;
+                cookies[key] = value;
             }
         }
-
-
-
     }
     internal class Program
     {
         static void Main(string[] args)
         {
-           MyCookieCollection cookies = new MyCookieCollection();
+            MyCookieCollection cookies = new MyCookieCollection();
             cookies["username"] = "John Doe";
             cookies["theme"] = "dark";
             cookies["language"] = "en";

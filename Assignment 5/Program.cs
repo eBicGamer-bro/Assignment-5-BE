@@ -45,17 +45,40 @@ namespace Assignment_5
             tasks.Add(newTask);
             Console.WriteLine("Task added successfully");
         }
-        public void RemoveTask(int index)
+        public void RemoveTask()
         {
-            if (index < tasks.Count && index >= 0)
+            if (tasks.Count == 0)
             {
-                tasks.RemoveAt(index);
-                Console.WriteLine("Task removed successfully.");
+                Console.WriteLine("> No tasks to remove.");
+                return;
             }
-            else Console.WriteLine("Invalid task number.");
+            Console.Write("Enter task number to remove: ");
+            int index;
+            if (int.TryParse(Console.ReadLine(), out index))
+            {
+                index--;
+                if (index < tasks.Count && index >= 0)
+                {
+                    tasks.RemoveAt(index);
+                    Console.WriteLine("Task removed successfully.");
+                }
+                else Console.WriteLine("Invalid task number.");
+
+            }
+            else
+            {
+                Console.WriteLine("Invalid Input!");
+            }
+            
+            
         }
         public void ViewTasks()
         {
+            if(tasks.Count == 0)
+            {
+                Console.WriteLine("> No tasks to display.");
+                return;
+            }
             Console.WriteLine("\nYour Tasks:");
             for (int i = 0; i < tasks.Count; i++)
             {
@@ -63,13 +86,28 @@ namespace Assignment_5
             }
             Console.WriteLine("\n");
         }
-        public void MarkTaskAsCompleted(int index)
+        public void MarkTaskAsCompleted()
         {
-            if (index < tasks.Count && index >= 0)
+            if (tasks.Count == 0)
             {
-                tasks[index].MarkAsCompleted();
+                Console.WriteLine("> No tasks to mark as completed.");
+                return;
             }
-            else Console.WriteLine("Invalid task number.");
+            Console.Write("Enter task number to mark as completed: ");
+            int index;
+            if (int.TryParse(Console.ReadLine(), out index))
+            {
+                index--;
+                if (index < tasks.Count && index >= 0)
+                {
+                    tasks[index].MarkAsCompleted();
+                }
+                else Console.WriteLine("Invalid task number.");
+            }
+            else
+            {
+                Console.WriteLine("Invalid Input!");
+            }
         }
     }
     
@@ -95,36 +133,15 @@ namespace Assignment_5
                 } while (true);
                 switch (choice)
                 {
-                    case 1: {
-                                 Console.Write("Enter task description: ");
-                                 list.AddTask(Console.ReadLine());
-                             }break;
+                    case 1:{
+                            Console.Write("Enter task description: ");
+                            list.AddTask(Console.ReadLine());
+                           }break;
                     case 2: list.ViewTasks(); break;
-                    case 3: {
-                                 Console.Write("Enter task number to mark as completed: ");
-                                 int taskNum;
-                                 if (int.TryParse(Console.ReadLine(), out taskNum))
-                                 {
-                                     list.MarkTaskAsCompleted(taskNum - 1);
-                                 }
-                                 else
-                                 {
-                                     Console.WriteLine("Invalid Input!");
-                                 }
-                             }break;
-                    case 4:
-                        {
-                            Console.Write("Enter task number to remove: ");
-                            int taskNum;
-                            if (int.TryParse(Console.ReadLine(), out taskNum))
-                            {
-                                list.RemoveTask(taskNum - 1);
-                            }
-                            else
-                            {
-                                Console.WriteLine("Invalid Input!");
-                            }
-                        }break;
+                    case 3: list.MarkTaskAsCompleted();
+                            break;
+                    case 4: list.RemoveTask(); 
+                            break;
                     case 5: return;
                     default: Console.WriteLine("Invalid choice. Please select a number between 1 and 5."); break;
 
